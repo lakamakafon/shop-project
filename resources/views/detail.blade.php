@@ -19,7 +19,7 @@
             <button class="btn btn-primary">Do koszyka</button>
             </form>
             <br><br>
-            <button class="btn btn-success">Kup teraz</button>
+            <a href="/ordernow" class="btn btn-success">Kup teraz</a>
             <br><br>
 
         </div>

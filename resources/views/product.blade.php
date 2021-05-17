@@ -17,7 +17,7 @@
                     <img class="slider-img" src="{{$item['gallery']}}">
                     <div class="carousel-caption slider-text">
                         <h3>{{$item['name']}}</h3>
-                        <p>{{$item['description']}}</p>
+                        <p>{{$item['short_description']}}</p>
                     </div>
                 </a>
             </div>
@@ -36,10 +36,10 @@
         </a>
     </div>
     <div class="trending-wrapper">
-        <h3>Popularne produkty w naszym sklepie</h3>
+        <h3 style="text-align: center;">Popularne produkty w naszym sklepie</h3>
         <br>
         @foreach($products as $item)
-        <div class="trending-item">
+        <div class="trending-item" style="padding:100px;float:centre;width:300px;">
             <a href="detail/{{$item['id']}}">
                 <img class="trending-image" src="{{$item['gallery']}}">
                 <div class="">
