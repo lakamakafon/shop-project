@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
+
 use Session;
 use Illuminate\Support\Facades\DB;
+
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -64,5 +68,70 @@ class ProductController extends Controller
     {
         Cart::destroy($id);
         return redirect('cartlist');
+    }
+
+    function orderNow()
+    {
+        $userId = Session::get('user')['id'];
+        $total = $products = DB::table('cart')
+            ->join('products', 'cart.product_id', '=', 'products.id')
+            ->where('cart.user_id', $userId)
+            ->sum('products.price');
+        $tax = 23;
+        $tax_value = $total*$tax/100;
+
+        $towary = DB::table('cart')
+        ->join('products', 'cart.product_id', '=', 'products.id')
+        ->where('cart.user_id', $userId)
+        ->select('products.name', 'products.price')
+        ->get();
+
+        $ile = $towary->count();
+
+        return view('ordernow', ['total' => $products,'tax_value' => $tax_value], compact('towary'));
+    }
+
+
+    function orderPlace(Request $req)
+    {
+        $userId = Session::get('user')['id'];
+        $allCart = Cart::where('user_id', $userId)->get();
+
+        $current_date = Carbon::now();
+        $date = $current_date->format('Ymd');
+        $a = mt_rand(10000, 99999);
+        $number = "FS/".$date."/".$a;
+        
+
+        foreach ($allCart as $cart) {
+            $order = new Order;
+            $order->product_id = $cart['product_id'];
+            $order->user_id = $cart['user_id'];
+            $order->status = 'oczekujące';
+            $order->payment_method = $req->payment;
+            $order->payment_status = 'oczekujące';
+            $order->street = $req->street;
+            $order->build_nr = $req->build_nr;
+            $order->a_nr = $req->a_nr;
+            $order->city_code = $req->city_code;
+            $order->city = $req->city;
+            $order->add_info = $req->add_info;
+            $order->invoice_nr = $number;
+            $order->save();
+            Cart::where('user_id', $userId)->delete();
+        }
+        $req->input();
+        return redirect('/');
+    }
+
+    function myOrders()
+    {
+        $userId = Session::get('user')['id'];
+        $orders = DB::table('orders')
+            ->join('products', 'orders.product_id', '=', 'products.id')
+            ->where('orders.user_id', $userId)
+            ->get();
+
+        return view('myorders', ['orders' => $orders]);
     }
 }
