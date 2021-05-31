@@ -2,8 +2,8 @@
 @section("content")
 <div class="custom-login">
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-            <form action="login" method="POST">
+        <div class="col-lg-6 offset-lg-3">
+            <form action="login" method="POST" >
                 <div class="mb-3">
                     @csrf
                     <center><h1>Zaloguj się</h1></center><br><br>

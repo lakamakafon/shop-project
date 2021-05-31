@@ -7,16 +7,16 @@
                 @foreach($towary as $towar)
                 <tr>
                     <td>{{$towar->name}}</td>
-                    <td>{{$towar->price}} zł</td>
+                    <td>{{number_format($towar->price, 2, '.', '')}} zł</td>
                 </tr>
                 @endforeach
                 <tr>
                     <td>Razem</td>
-                    <td>{{$total}} zł</td>
+                    <td>{{number_format($total, 2, '.', '')}} zł</td>
                 </tr>
                 <tr>
                     <td>W tym podatek VAT 23%</td>
-                    <td>{{$tax_value}} zł</td>
+                    <td>{{number_format($tax_value, 2, '.', '')}} zł</td>
                 </tr>
                 <tr>
                     <td>Dostawa</td>

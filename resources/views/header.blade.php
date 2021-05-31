@@ -7,51 +7,43 @@ if (Session::has('user')) {
   $total = ProductController::cartItem();
 }
 ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Drukarex</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Drukarex</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="/">Strona główna</a></li>
-        <li><a href="/">Sklep</a></li>
-        <li><a href="/about_us">O nas</a></li>
-        <li><a href="/contact">Kontakt</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <form action="/search" class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" name="query" class="form-control search-box" placeholder="Wpisz frazę">
-          </div>
-          <button type="submit" class="btn btn-default">Wyszukaj</button>
-        </form>
-        <li><a href="/cartlist">Koszyk({{$total}})</a></li>
-        @if(Session::has('user'))
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{Session::get('user')['name']}}
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/myorders">Twoje zamówienia</a></li>
-            <li><a href="/logout">Wyloguj</a></li>
-          </ul>
-        </li>
-        @else
-        <li><a href="/login">Zaloguj</a></li>
-        <li><a href="/register">Zarejestruj się</a></li>
-        @endif
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Strona główna</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop">Sklep</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cartlist">Koszyk({{$total}})</a>
+      </li>
+      <form action="/search" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Wpisz frazę" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Wyszukaj</button>
+      </form>
+    </ul>
+    <ul class="navbar-nav">
+      @if(Session::has('user'))
+      <li class="nav-item dropdown" style="margin-right: 90px;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Session::get('user')['name']}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/myorders">Twoje zamówienia</a>
+          <a class="dropdown-item" href="/myaccount">Twoje konto</a>
+          <a class="dropdown-item" href="/logout">Wyloguj</a>
+      </li>
+      @else
+      <a class="nav-link" href="/login">Zaloguj się</a>
+      <a class="nav-link" href="/register">Zarejestruj się</a>
+      @endif
+    </ul>
+  </div>
 </nav>

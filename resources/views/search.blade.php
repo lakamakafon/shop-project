@@ -12,8 +12,8 @@
                 <a href="detail/{{$item['id']}}">
                     <img class="trending-image" src="{{$item['gallery']}}">
                     <div class="">
-                        <h2>{{$item['name']}}</h2>
-                        <h3>{{$item['description']}}</h3>
+                        <h2>{{$item->name}}</h2>
+                        <h3>{{$item->short_description}}</h3><br>
                     </div>
                 </a>
             </div>
