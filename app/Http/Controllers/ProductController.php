@@ -17,8 +17,18 @@ class ProductController extends Controller
     //
     function index()
     {
-        $data = Product::all();
-        return view('product', ['products' => $data]);
+        return view('main');
+    }
+
+    function shop()
+    {
+        $products = Product::all();
+
+        $userId = Session::get('user')['id'];
+        $items = DB::table('products')
+            ->join('laptop-details', 'products.id', '=', 'laptop-details.product_id')
+            ->get();
+        return view('shop.shop', ['products' => $products, 'items' => $items]);
     }
 
     function detail($id)
@@ -61,7 +71,9 @@ class ProductController extends Controller
             ->select('products.*', 'cart.id as cart_id')
             ->get();
 
-        return view('cartlist', ['products' => $products]);
+        $suma = ProductController::sum();
+
+        return view('cartlist', ['products' => $products, 'suma' => $suma]);
     }
 
     function removeCart($id)
@@ -73,10 +85,7 @@ class ProductController extends Controller
     function orderNow()
     {
         $userId = Session::get('user')['id'];
-        $total = $products = DB::table('cart')
-            ->join('products', 'cart.product_id', '=', 'products.id')
-            ->where('cart.user_id', $userId)
-            ->sum('products.price');
+        $total = ProductController::sum();
         $tax = 23;
         $tax_value = $total*$tax/100;
 
@@ -86,9 +95,18 @@ class ProductController extends Controller
         ->select('products.name', 'products.price')
         ->get();
 
-        $ile = $towary->count();
+        return view('ordernow', ['total' => $total,'tax_value' => $tax_value], compact('towary'));
+    }
 
-        return view('ordernow', ['total' => $products,'tax_value' => $tax_value], compact('towary'));
+    function sum()
+    {
+        $userId = Session::get('user')['id'];
+        $sum = $products = DB::table('cart')
+            ->join('products', 'cart.product_id', '=', 'products.id')
+            ->where('cart.user_id', $userId)
+            ->sum('products.price');
+
+        return $sum;
     }
 
 

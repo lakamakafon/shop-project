@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Session;
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     //
@@ -27,10 +29,33 @@ class UserController extends Controller
         $user->name=$req->name;
         $user->email=$req->email;
         $user->password=Hash::make($req->name);
+        $user->firstname=$req->firstname;
+        $user->lastname=$req->lastname;
+        $user->NIP=$req->NIP;;
+        $user->tel_nr=$req->tel_nr;
+        $user->street=$req->street;
+        $user->building_nr=$req->building_nr;
+        $user->apart_nr=$req->apart_nr;
+        $user->mail=$req->mail;
+        $user->mail_code=$req->mail_code;
 
         $user->save();
+
         return redirect('/login');
     }
+
+    function myaccount(Request $req)
+    {
+        $userId = Session::get('user')['id'];
+        $data = DB::table('users')
+        ->where('users.id', $userId)
+        ->select('users.*')
+        ->get();
+
+        return view('myaccount', ['data' => $data]);
+    }
+
+
 
     function about_us()
     {
