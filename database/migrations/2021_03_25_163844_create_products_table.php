@@ -19,9 +19,9 @@ class CreateProductsTable extends Migration
             $table->string("manufacturer");
             $table->string("model")->unique();
             $table->string("code")->unique();
-            $table->float("price");
+            $table->float("price", 6,2)->unsigned();
             $table->string("category");
-            $table->string("description");
+            $table->text("description");
             $table->string("short_description");
             $table->string("gallery");
             $table->timestamps();
