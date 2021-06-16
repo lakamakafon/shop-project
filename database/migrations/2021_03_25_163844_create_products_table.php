@@ -20,10 +20,26 @@ class CreateProductsTable extends Migration
             $table->string("model")->unique();
             $table->string("code")->unique();
             $table->float("price", 6,2)->unsigned();
-            $table->string("category");
             $table->text("description");
             $table->string("short_description");
             $table->string("gallery");
+            $table->string('CPU_family');
+            $table->string('CPU_model');
+            $table->string('CPU_Hz');
+            $table->string('cores_threads');
+            $table->string('RAM_type');
+            $table->string('RAM_size');
+            $table->string('GPU');
+            $table->string('GPU_model');
+            $table->string('disk_type');
+            $table->string('disk_size');
+            $table->string('screen_type');
+            $table->string('screen_size');
+            $table->string('ports');
+            $table->string('battery');
+            $table->string('OS');
+            $table->string('OS_lang');
+            $table->string('size');
             $table->timestamps();
         });
     }
