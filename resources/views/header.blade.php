@@ -8,7 +8,7 @@ if (Session::has('user')) {
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand">Drukarex</a>
+  <a class="navbar-brand"><img style="width:160px; height: 60px;" src="{{url('/images/1.png')}}" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -33,7 +33,7 @@ if (Session::has('user')) {
       @if(Session::has('user'))
       <li class="nav-item dropdown" style="margin-right: 90px;">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{Session::get('user')['name']}}
+          Witaj {{Session::get('user')['name']}}!
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/myorders">Twoje zamówienia</a>

@@ -16,7 +16,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Header -->
 <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo"><img src="D.png"></img></h1>
+  <h1 class="w3-margin w3-jumbo"><img src="{{url('/images/1.png')}}"></img></h1>
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="/shop">Sprawdź nasz asortyment</button>
 </header>
 
