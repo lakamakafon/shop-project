@@ -38,3 +38,7 @@ Route::get("/myorders", [ProductController::class, 'myOrders']);
 Route::view("/register", 'register');
 Route::get("/about_us", [UserController::class, 'about_us']);
 Route::get("/contact", [UserController::class, 'contact']);
+Route::get("/shop", [ProductController::class, 'shop']);
+Route::get("/myaccount", [UserController::class, 'myaccount']);
+Route::get("/shop/computers", [ProductController::class, 'getComputers']);
+Route::get('/pdf/faktura/{invoice_nr}',[ProductController::class, 'createInvoice']);
