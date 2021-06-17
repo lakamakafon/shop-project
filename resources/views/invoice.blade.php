@@ -11,7 +11,7 @@
         th,
         td {
             border: solid black 1px;
-            width: 99%;
+            width: 100%;
             border-collapse: collapse;
             font-size: 10px;
             text-align: center;
@@ -46,7 +46,7 @@
     <div style="width: 90%; margin:10px">
         <img src="{{ public_path('1.png') }}">
         <p style="float:right">Numer sprzedaży: <b>{{$number}}</b><br>Data wystawienia: <b>{{$date2}}</b></p><br><br>
-        <h1 style="text-align: center;">Faktura sprzedaży</h1><br>
+        <h1 style="text-align: center;">Faktura sprzedaży <br> {{$number}}</h1><br>
         <div>
             <div class="data">
                 <h4>Dane sprzedawcy</h4>
@@ -67,28 +67,48 @@
         </div>
         <table>
             <tr>
-                <th>Marka</th>
-                <th>Kod</th>
-                <th>Cena</th>
+                <th>NAZWA</th>
+                <th>CENA BRUTTO</th>
+                <th>STAWKA VAT</th>
+                <th>WARTOŚĆ NETTO</th>
+                <th>WARTOŚĆ BRUTTO</th>
             </tr>
             @foreach($products as $p)
             <tr style="text-align:center">
                 <td>{{$p->name}}</td>
-                <td>{{$p->code}}</td>
+                <td>{{number_format($p->price, 2, '.', '')}} zł</td>
+                <td>23%</td>
+                <td>{{number_format($p->price*0.77, 2, '.', '')}} zł</td>
                 <td>{{number_format($p->price, 2, '.', '')}} zł</td>
             </tr>
             @endforeach
             <tr>
-                <td colspan="2">Dostawa</td>
-                <td>10 zł</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="background-color: #e0e0d1;"><b>RAZEM</b></td>
-                @foreach($razem as $suma)
-                <td style="background-color: #e0e0d1;">{{number_format($suma, 2, '.', '')}} zł</td>
-                @endforeach
+                <td>Dostawa</td>
+                <td>10.00 zł</td>
+                <td>23%</td>
+                <td>7.70 zł</td>
+                <td>10.00 zł</td>
             </tr>
         </table>
+        <br><br>
+        <div class="details">
+            <table style="width: 70%;">
+                <tr>
+                    <th></th>
+                    <th>WARTOŚĆ NETTO</th>
+                    <th>KWOTA VAT</th>
+                    <th>WARTOŚĆ BRUTTO</th>
+                </tr>
+                <tr style="background-color: #e0e0d1;">
+                    <td>RAZEM</td>
+                    @foreach($razem as $r2)
+                    <td>{{number_format($r2, 2, '.', '')*0.77}} zł</td>
+                    <td>{{number_format($r2, 2, '.', '')*0.23}} zł</td>
+                    <td>{{number_format($r2, 2, '.', '')}} zł</td>
+                    @endforeach
+                </tr>
+            </table>
+        </div>
         <br><br><br><br><br><br>
 
         <p id="aaa" style="float:left; text-align:center">........................................................<br>
